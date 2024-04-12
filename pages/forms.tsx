@@ -179,7 +179,7 @@ export default function Forms() {
         </div>
         <div>
           <label htmlFor="email" className="sub-title">
-            Email:{" "}
+            Email
           </label>
           <input
             id="email"
