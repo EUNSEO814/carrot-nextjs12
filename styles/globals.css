@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .radio-label {
+    @apply mb-2 ml-2 text-sm font-bold text-gray-700;
+  }
+  .input-st {
+    @apply w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none;
+  }
+  .error-message {
+    @apply text-xs italic text-red-500;
+  }
+  .sub-title {
+    @apply block my-2 text-base font-medium text-gray-900;
+  }
+}
