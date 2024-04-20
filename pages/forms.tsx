@@ -164,7 +164,7 @@ export default function Forms() {
             Tell me what your dreams are
           </label>
           <textarea
-            rows="4"
+            // rows="4"
             id="dream"
             {...register("dream", {
               required: "Please write down your dream",
