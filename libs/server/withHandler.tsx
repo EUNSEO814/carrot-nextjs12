@@ -4,10 +4,23 @@ export interface ResponseType {
   ok: boolean;
   [key: string]: any;
 }
+interface ConfigType {
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  handler: (req: NextApiRequest, res: NextApiResponse) => void;
+  isPrivate?: boolean;
+}
 
 export default function withHandler(
-  method: "GET" | "POST" | "PUT" | "DELETE",
-  fn: (req: NextApiRequest, res: NextApiResponse) => void
+  // method: "GET" | "POST" | "PUT" | "DELETE",
+  // fn: (req: NextApiRequest, res: NextApiResponse) => void,
+  // isPrivate: boolean
+
+  // ---
+  // config: ConfigType
+
+  // ---
+  // isPrivate = true : default값 true로 지정
+  { method, isPrivate = true, handler }: ConfigType
 ) {
   return async function (
     req: NextApiRequest,
@@ -16,8 +29,11 @@ export default function withHandler(
     if (req.method !== method) {
       return res.status(405).end();
     }
+    if (isPrivate && !req.session.user) {
+      return res.status(401).json({ ok: false, error: "Plz log in." });
+    }
     try {
-      await fn(req, res);
+      await handler(req, res);
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error });
